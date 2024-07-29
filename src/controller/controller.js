@@ -31,16 +31,17 @@ class DBController {
     }
 
     async login(username, password) {
-        const response = await fetch(`http://26.60.40.255:8080/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        }).then(response => response.ok);
+        // const response = await fetch(`http://26.60.40.255:8080/login`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         username: username,
+        //         password: password
+        //     })
+        // }).then(response => response.ok);
+        const response = true;
         return response;
     }
 

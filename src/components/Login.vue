@@ -63,144 +63,143 @@
 </template>
 
 <script>
-    import { controller } from '@/controller/controller';
+import { controller } from '@/controller/controller';
 
-    export default {
-        data() {
-            return {
-                credentials: {
-                    username: '',
-                    password: '',
-                    email: ''
-                },
-                userData: {
-                    firstName: '',
-                    lastName: '',
-                    birthDate: '',
-                    cpf: ''
-                },
-                address: {
-                    country: '',
-                    countryState: '',
-                    city: '',
-                    neighborhood: '',
-                    street: '',
-                    streetNumber: '',
-                    complement: '',
-                    zipCode: ''
-                },
-                confirmPassword: '',
-                field: 'userData',
-                signUp: false,
+export default {
+    data() {
+        return {
+            credentials: {
                 username: '',
-                password: ''
-            }
+                password: '',
+                email: ''
+            },
+            userData: {
+                firstName: '',
+                lastName: '',
+                birthDate: '',
+                cpf: ''
+            },
+            address: {
+                country: '',
+                countryState: '',
+                city: '',
+                neighborhood: '',
+                street: '',
+                streetNumber: '',
+                complement: '',
+                zipCode: ''
+            },
+            confirmPassword: '',
+            field: 'userData',
+            signUp: false,
+            username: '',
+            password: ''
+        }
+    },
+    methods: {
+        registerMode(state) {
+            this.signUp = state;
         },
-        methods: {
-            registerMode(state) {
-                this.signUp = state;
-            },
-            changeField(name) {
-                this.field = name;
-            },
-            async register() {
-                const response = await controller.register(this.credentials, this.userData, this.address);
-                if (response) this.$toast.success('Usuário criado', this.$toast.settings);
-                else this.$toast.error('Algo deu errado', this.$toast.settings);
-            },
-            async login() {
-                const response = await controller.login(this.username, this.password);
-                if (response) {
-                    this.$emit('login', this.username);
-                    this.$toast.success(`Boas vindas, ${this.username}`, this.$toast.settings);
-                }
-                else this.$toast.error('Algo deu errado', this.$toast.settings);
-            }
+        changeField(name) {
+            this.field = name;
         },
-        emits: ['login']
-    }
+        async register() {
+            const response = await controller.register(this.credentials, this.userData, this.address);
+            if (response) this.$toast.success('Usuário criado', this.$toast.settings);
+            else this.$toast.error('Algo deu errado', this.$toast.settings);
+        },
+        async login() {
+            const response = await controller.login(this.username, this.password);
+            if (response) {
+                this.$emit('login', response, this.username);
+                this.$toast.success(`Boas vindas, ${this.username}`, this.$toast.settings);
+            }
+            else this.$toast.error('Algo deu errado', this.$toast.settings);
+        }
+    },
+    emits: ['login']
+}
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s, transform 0.5s;
+}
 
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity 0.5s, transform 0.5s;
-    }
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+    transform: translateX(-20px);
+}
 
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-    .login {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+.register {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-    .register {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+.fields {
+    display: flex;
+    gap: 24px;
+}
 
-    .fields {
-        display: flex;
-        gap: 24px;
-    }
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
-    .group {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
+.group.address {
+    flex-direction: row;
+}
 
-    .group.address {
-        flex-direction: row;
-    }
+.bi.register {
+    align-self: flex-end;
+}
 
-    .bi.register {
-        align-self: flex-end;
-    }
+.input {
+    padding: 12px 40px;
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 8px;
 
-    .input {
-        padding: 12px 40px;
-        border: 1px solid rgb(240, 240, 240);
-        border-radius: 8px;
+    text-align: center;
 
-        text-align: center;
+    outline: none;
 
-        outline: none;
+    color: rgb(150, 150, 150);
+}
 
-        color: rgb(150, 150, 150);
-    }
+.options {
+    display: flex;
+    justify-content: space-around;
+}
 
-    .options {
-        display: flex;
-        justify-content: space-around;
-    }
+.bi {
+    font-size: 24px;
+}
 
-    .bi {
-        font-size: 24px;
-    }
+.bi:hover {
+    transition: 0.5s;
+    filter: brightness(80%);
+    cursor: pointer;
+}
 
-    .bi:hover {
-        transition: 0.5s;
-        filter: brightness(80%);
-        cursor: pointer;
-    }
+.bi-check-circle-fill {
+    color: rgb(28, 160, 208);
+}
 
-    .bi-check-circle-fill {
-        color: rgb(28, 160, 208);
-    }
+.bi-arrow-right-circle-fill {
+    color: rgb(28, 160, 208);
+}
 
-    .bi-arrow-right-circle-fill {
-        color: rgb(28, 160, 208);
-    }
-
-    .bi-plus-circle-fill {
-        color: rgb(50, 208, 66);
-    }
+.bi-plus-circle-fill {
+    color: rgb(50, 208, 66);
+}
 </style>
