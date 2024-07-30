@@ -6,6 +6,6 @@
     .spinner-border {
         width: 6rem;
         height: 6rem;
-        color: rgb(28, 160, 208);
+        color: rgb(136, 140, 251);
     }
 </style>

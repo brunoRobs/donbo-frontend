@@ -4,10 +4,7 @@
             <div class="modal-content">
                 <i title="Fechar" class="bi bi-x-lg" @click="closeModal()" />
                 <div class="component">
-                    <p>{{ book.titulo }}</p>
-                    <p>{{ book.autor }}</p>
-                    <p>{{ book.editora }}</p>
-                    <p>{{ book.genero }}</p>
+                    <Book :book="$props.book" />
                 </div>
             </div>
         </div>
@@ -15,6 +12,8 @@
 </template>
 
 <script>
+    import Book from './Book.vue';
+
     export default {
         props: {
             showModal: {
@@ -26,14 +25,9 @@
                 required: true
             }
         },
-        data() {
-            return {
-                book: this.$props.book[0]
-            }
-        },
+        components: { Book },
         methods: {
             closeModal() {
-                this.book = {};
                 this.$emit('close');
             }
         },
@@ -45,7 +39,7 @@
 
     .fade-enter-active,
     .fade-leave-active {
-        transition: opacity 0.5s;
+        transition: opacity 0.25s;
     }
 
     .fade-enter,
@@ -71,7 +65,7 @@
     }
 
     .modal-content {
-        background-color: rgb(240, 240, 240);
+        background-color: rgb(255, 255, 255);
         padding: 20px;
         display: flex;
         align-items: flex-end;
